@@ -1,27 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    counter: 0,
-    step: 1
+  count: 0,
+  step: 1
 }
 
 const counterSlice = createSlice({
-    name: 'counter',
-    initialState,
-    reducers: {
-        increment: (state, action) => {
-            state.count += state.step;
-        },
-        decrement: (state, action) => {
-            state.count -= state.step;
-        }
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment: (state, action) => {
+      state.count += state.step;
+    },
+    decrement: (state, action) => {
+      state.count -= state.step;
+    },
+    setStep: (state, action) => { // action = { type, payload };
+      state.step = Number(action.payload);
     }
+  }
 });
 
-const { reducer, actions } = counterSlice;
+const { reducer, actions }  = counterSlice;
 
-// actrion creators
-const { increment, decrement } = actions;
+// action creators
+const { increment, decrement, setStep } = actions;
 
-export { increment, decrement };
+export { increment, decrement, setStep };
 export default reducer;
