@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'; 
+import { useSelector, useDispatch } from 'react-redux';
 import cx from 'classnames';
 import CONSTANTS from '../../constants';
 import { setTheme } from '../../store/slices/themeSlice';
@@ -7,13 +7,13 @@ import styles from './Header.module.scss';
 const { THEMES } = CONSTANTS;
 
 const Header = (props) => {
-  const theme = useSelector(state => state.theme);
+  const theme = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
   const className = cx(styles.header, {
     [styles.darkTheme]: theme === THEMES.DARK,
-    [styles.lightTheme]: theme === THEMES.LIGHT 
-  })
+    [styles.lightTheme]: theme === THEMES.LIGHT
+  });
 
   return (
     <header className={className}>
