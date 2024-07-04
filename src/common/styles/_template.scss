@@ -1,0 +1,9 @@
+@import './variable';
+
+.darkTheme {
+    @extend %darkTheme;
+}
+
+.lightTheme {
+    @extend %lightTheme;
+}
