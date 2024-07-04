@@ -1,16 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux'; 
+import { useSelector } from 'react-redux'; 
 import cx from 'classnames';
 import CONSTANTS from '../../constants';
 import { setTheme } from '../../store/slices/themeSlice';
 import styles from './Header.module.scss';
 const { THEMES } = CONSTANTS;
 
-const Header = ({ theme, language, setTheme }) => {
+const Header = (props) => {
+  const theme = useSelector(state => state.theme);
+
   const className = cx(styles.header, {
     [styles.darkTheme]: theme === THEMES.DARK,
-    [styles.lightTheme]: theme === THEMES.LIGHT
-  });
+    [styles.lightTheme]: theme === THEMES.LIGHT 
+  })
 
   return (
     <header className={className}>
