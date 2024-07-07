@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { increment, decrement, setStep } from '../../store/slices/counterSlice';
 import { setLang } from '../../store/slices/langSlice';
 import CONSTANTS from '../../constants';
@@ -44,7 +44,13 @@ const translations = new Map([
 ]);
 
 const Counter = (props) => {
-  const { counter: { count, step }, language, increment, decrement, setStep, setLang } = props;
+  const language = useSelector((state) => state.setLength)
+  const theme = useSelector((state) => state.theme);
+  const { count, step} = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
+
+  const setLanguage = (newLang) => dispatch(setLang(newLang));
+  const setNewStep = (newStep) => dispatch(setStep(newStep));
 
   const translation = translations.get(language);
 
@@ -57,7 +63,7 @@ const Counter = (props) => {
   
   return (
     <div className={className}>
-      <select value={language} onChange={({ target: { value } }) => setLang(value)}>
+      <select value={language} onChange={({ target: { value } }) => setLanguage(value)}>
         <option value={EN_US}>English</option>
         <option value={UA_UA}>Ukrainian</option>
         <option value={DE_DE}>Deutch</option>
@@ -70,11 +76,11 @@ const Counter = (props) => {
         <input
           type="number"
           value={step}
-          onChange={({ target: { value } }) => setStep(value)}
+          onChange={({ target: { value } }) => setNewStep(value)}
         />
       </label>
-      <button onClick={() => increment()}>{incrementText}</button>
-      <button onClick={() => decrement()}>{decrementText}</button>
+      <button onClick={() => dispatch(increment())}>{incrementText}</button>
+      <button onClick={() => dispatch(decrement())}>{decrementText}</button>
     </div>
   );
 };
